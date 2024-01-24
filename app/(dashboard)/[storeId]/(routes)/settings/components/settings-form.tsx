@@ -1,6 +1,7 @@
 "use client"
 
 import { AlertModal } from "@/components/modals/alert-modal"
+import { ApiAlert } from "@/components/ui/api-alert"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -92,9 +93,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
           <Trash className="h-4 w-4" />
         </Button>
       </div>
-
       <Separator />
-
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -119,12 +118,13 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
               )}
             />
           </div>
-
           <Button disabled={loading} className="ml-auto" type="submit">
             Save changes
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert title="test" description="test-description" variant="public" />
     </>
   )
 }
