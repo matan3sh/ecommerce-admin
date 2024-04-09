@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { AlertModal } from "@/components/modals/alert-modal"
-import { ApiAlert } from "@/components/ui/api-alert"
-import { Button } from "@/components/ui/button"
+import { AlertModal } from '@/components/modals/alert-modal'
+import { ApiAlert } from '@/components/ui/api-alert'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -10,19 +10,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Heading } from "@/components/ui/heading"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Store } from "@prisma/client"
-import axios from "axios"
-import { Trash } from "lucide-react"
-import { useParams, useRouter } from "next/navigation"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import toast from "react-hot-toast"
-import * as z from "zod"
+} from '@/components/ui/form'
+import { Heading } from '@/components/ui/heading'
+import { Input } from '@/components/ui/input'
+import { Separator } from '@/components/ui/separator'
+import { useOrigin } from '@/hooks/use-origin'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Store } from '@prisma/client'
+import axios from 'axios'
+import { Trash } from 'lucide-react'
+import { useParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import * as z from 'zod'
 
 interface SettingsFormProps {
   initialData: Store
@@ -37,6 +38,7 @@ type SettingFormValues = z.infer<typeof formSchema>
 export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const params = useParams()
   const router = useRouter()
+  const origin = useOrigin()
 
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -51,9 +53,9 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       setLoading(true)
       await axios.patch(`/api/stores/${params.storeId}`, data)
       router.refresh()
-      toast.success("Store updated.")
+      toast.success('Store updated.')
     } catch (error) {
-      toast.error("Something went wrong.")
+      toast.error('Something went wrong.')
     } finally {
       setLoading(false)
     }
@@ -64,10 +66,10 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       setLoading(true)
       await axios.delete(`/api/stores/${params.storeId}`)
       router.refresh()
-      router.push("/")
-      toast.success("Store deleted.")
+      router.push('/')
+      toast.success('Store deleted.')
     } catch (error) {
-      toast.error("Make sure you removed all products and categories first.")
+      toast.error('Make sure you removed all products and categories first.')
     } finally {
       setLoading(false)
       setOpen(false)
@@ -85,7 +87,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
         <Button
-          variant={"destructive"}
+          variant={'destructive'}
           size="sm"
           onClick={() => setOpen(true)}
           disabled={loading}
@@ -124,7 +126,11 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
         </form>
       </Form>
       <Separator />
-      <ApiAlert title="test" description="test-description" variant="public" />
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description={`${origin}/api/${params.storeId}`}
+        variant="public"
+      />
     </>
   )
 }
