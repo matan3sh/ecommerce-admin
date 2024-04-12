@@ -1,10 +1,11 @@
 'use client'
 
+import { CldUploadWidget } from 'next-cloudinary'
+import { useEffect, useState } from 'react'
+
 import { Button } from '@/components/ui/button'
 import { ImagePlus, Trash } from 'lucide-react'
-import { CldUploadWidget } from 'next-cloudinary'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 
 interface ImageUploadProps {
   disabled?: boolean
@@ -35,7 +36,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   return (
     <div>
-      <div className="mb-4 flex item-center gap-4">
+      <div className="mb-4 flex items-center gap-4">
         {value.map((url) => (
           <div
             key={url}
@@ -45,8 +46,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
               <Button
                 type="button"
                 onClick={() => onRemove(url)}
-                variant={'destructive'}
-                size={'icon'}
+                variant="destructive"
+                size="sm"
               >
                 <Trash className="h-4 w-4" />
               </Button>
@@ -55,7 +56,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           </div>
         ))}
       </div>
-      <CldUploadWidget onUploadAdded={onUpload} uploadPreset="nrpyniuq">
+      <CldUploadWidget onUpload={onUpload} uploadPreset="nrpyniuq">
         {({ open }) => {
           const onClick = () => {
             open()
@@ -65,10 +66,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
             <Button
               type="button"
               disabled={disabled}
-              variant={'secondary'}
+              variant="secondary"
               onClick={onClick}
             >
               <ImagePlus className="h-4 w-4 mr-2" />
+              Upload an Image
             </Button>
           )
         }}
