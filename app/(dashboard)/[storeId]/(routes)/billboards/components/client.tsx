@@ -1,7 +1,11 @@
 'use client'
 
-import { BillboardColumn } from '@/app/(dashboard)/[storeId]/(routes)/billboards/components/columns'
+import {
+  BillboardColumn,
+  columns,
+} from '@/app/(dashboard)/[storeId]/(routes)/billboards/components/columns'
 import { Button } from '@/components/ui/button'
+import { DataTable } from '@/components/ui/data-table'
 import { Heading } from '@/components/ui/heading'
 import { Separator } from '@/components/ui/separator'
 import { Plus } from 'lucide-react'
@@ -30,6 +34,7 @@ const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
+      <DataTable columns={columns} data={data} />
     </>
   )
 }
