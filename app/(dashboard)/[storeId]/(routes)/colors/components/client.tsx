@@ -1,9 +1,9 @@
 'use client'
 
 import {
+  ColorColumn,
   columns,
-  SizeColumn,
-} from '@/app/(dashboard)/[storeId]/(routes)/sizes/components/columns'
+} from '@/app/(dashboard)/[storeId]/(routes)/colors/components/columns'
 import ApiList from '@/components/ui/api-list'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
@@ -13,7 +13,7 @@ import { Plus } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 
 interface ColorClientProps {
-  data: SizeColumn[]
+  data: ColorColumn[]
 }
 
 const ColorClient: React.FC<ColorClientProps> = ({ data }) => {
