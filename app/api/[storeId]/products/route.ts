@@ -114,6 +114,15 @@ export async function GET(
         isFeatured: isFeatured ? true : undefined,
         isArchived: false,
       },
+      include: {
+        images: true,
+        category: true,
+        color: true,
+        size: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
     })
 
     return NextResponse.json(products)
